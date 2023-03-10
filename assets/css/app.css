@@ -112,6 +112,16 @@ body{
     min-width: var(--map-container-width);
 }
 
+#map-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.form-div-container {
+    width: fit-content;
+}
+
 #map-search #map-near {
     height: 20px;
     width: calc(15% + 20px);
@@ -142,8 +152,8 @@ body{
 
 #map-search #map-radius {
     height: 24px;
-    width: calc(5% + 20px);
-    max-width: 50px;
+    width: 50px;
+
 }
 
 #map { 
