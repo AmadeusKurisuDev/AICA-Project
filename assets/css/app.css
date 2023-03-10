@@ -74,18 +74,29 @@ body{
     justify-content: space-around;
 }
 
-.header img {
+.header .logo-container img {
+    position: relative;
     height: 70px;
+    bottom: -10px;
 }
 
 /*-----------HEADER(FINE)-------------*/
 
 /*-----------main-------------*/
 
-.main-container {
+.content {
     height: calc(100% - 80px - 45px);
     width: 100%;
-    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    height: 100%;
+    width: 65%;
+    background-color: var(--top-header-bg);
 }
 
 .map-container {
@@ -107,7 +118,7 @@ body{
 }
 
 #map-search {
-    background-color: red;
+    background-color: var(--form-color);
     max-width: var(--map-container-width);
     min-width: var(--map-container-width);
 }
@@ -116,10 +127,27 @@ body{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#map-form button {
+    color: #ffffff;
+    font-size: 14px;
+    height: 20px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--accent-bt-color);
+}
+
+#map-form button:hover{
+    transition: .2s ease-in-out;
+    background-color: var(--main-bt-color);
 }
 
 .form-div-container {
     width: fit-content;
+    margin: 20px;
 }
 
 #map-search #map-near {
@@ -153,7 +181,11 @@ body{
 #map-search #map-radius {
     height: 24px;
     width: 50px;
+}
 
+#map-search form label{
+    font-weight: 700;
+    font-size: 13px;
 }
 
 #map { 
