@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./assets/js/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="assets/css/variables.css">
@@ -36,8 +37,29 @@
     </div>
     <div class="main-container">
         <div class="map-container">
+            <div class="map-container-column">
+                <div id="map-search">
+                    <form action="" method="post">
+                        <label for="map-near">VICINO A:</label>
+                        <input type="text" name="map-near" id="map-near" placeholder="Inserisci un Indirizzo, Città o CAP">
+                        <label for="map-radius">RAGGIO:</label>
+                        <select name="map-radius" id="map-radius">
+                            <option value="10">10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                        </select>
+                        <label for="map-code">CODICE TEST CENTER:</label>
+                        <input type="text" name="map-code" id="map-code">
+                        <label for="map-datefrom">SESSIONE DA:</label>
+                        <input type="date" name="map-datefrom" id="map-dateto">
+                        <label for="map-dateto">SESSIONE A:</label>
+                        <input type="date" name="map-dateto" id="map-dateto">
+                    </form>
+                </div>
+                <div id="map"></div>
+            </div>
             
-            <div id="map"></div>
         </div>
     </div>
     <div class="footer">
