@@ -123,9 +123,9 @@
                                 </div>
                                 <div class="form-div-container" id="date">
                                     <label for="map-datefrom">SESSIONE DA:</label>
-                                    <input type="date" name="map-datefrom" id="map-dateto">
+                                    <input type="date" name="map-datafrom" id="map-dateto">
                                     <label for="map-dateto">SESSIONE A:</label>
-                                    <input type="date" name="map-dateto" id="map-dateto">
+                                    <input type="date" name="map-datato" id="map-dateto">
                                 </div>
                                 <div class="form-div-container" id="certification">
                                     <label for="map-radius">CERTIFICAZIONE:</label>
