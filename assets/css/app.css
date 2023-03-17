@@ -125,19 +125,33 @@ body{
 
 #map-form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.search {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: var(--map-container-width);
+    min-width: var(--map-container-width);
 }
 
 #map-form button {
+    position: sticky;
+    float: right;
+    right: 0px;
     color: #ffffff;
     font-size: 14px;
     height: 20px;
+    width: fit-content;
     padding: 0px 10px 0px 10px;
     border-radius: 5px;
     border: none;
     background-color: var(--accent-bt-color);
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 #map-form button:hover{
@@ -178,9 +192,10 @@ body{
     transition: .2s ease-in-out;
 }
 
-#map-search #map-radius {
+#map-search #map-cert {
     height: 24px;
-    width: 50px;
+    width: calc(35% + 20px);
+    min-width: 150px;
 }
 
 #map-search form label{

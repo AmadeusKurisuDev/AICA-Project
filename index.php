@@ -1,6 +1,7 @@
 <?php
-session_start();
-$_SESSION['codeMap'] = '<script src="./assets/js/app.js"></script>';
+    include('./config/conn.php');
+    session_start();
+    $_SESSION['codeMap'] = '<script src="./assets/js/app.js"></script>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +47,13 @@ $_SESSION['codeMap'] = '<script src="./assets/js/app.js"></script>';
         var results = document.getElementById('results');
         results.innerHTML = "";
         insertInput.value = valueii;
+        var textin = document.getElementById("map-near-input").value;
+        var btn = document.getElementById("submit");
+        if (textin) {
+            btn.removeAttribute('disabled');
+        } else {
+            btn.setAttribute('disabled', true);
+        }
     }
     </script>
 </head>
@@ -73,52 +81,78 @@ $_SESSION['codeMap'] = '<script src="./assets/js/app.js"></script>';
                     <div id="map-search">
                         <!--action="./logic/search.php"-->
                         <form action="./logic/map.php" id="map-form" onkeydown="return event.key != 'Enter';">
-                            <div class="form-div-container" id="map-div-near-input">
-                                <label for="map-near">VICINO A:</label>
-                                <input type="text" name="q" id="map-near-input" placeholder="Inserisci un Comune" onkeyup="showResult(this.value)" autocomplete="off">
-                                <div id="results"></div>
-                                <style>
-                                    #results {
-                                        position: absolute;
-                                        z-index: 999;
-                                        width: calc(15% + 20px);
-                                        min-width: 210px;
-                                        background-color: var(--footer-color);
-                                        font-size: 13px;
-                                    }
+                            <div class="search">
+                                <div class="form-div-container" id="map-div-near-input">
+                                    <label for="map-near">VICINO A:</label>
+                                    <input type="text" name="q" id="map-near-input" placeholder="Inserisci un Comune" onkeyup="showResult(this.value)" autocomplete="off" required>
+                                    <div id="results"></div>
+                                    <style>
+                                        #results {
+                                            position: absolute;
+                                            z-index: 999;
+                                            width: calc(15% + 20px);
+                                            min-width: 210px;
+                                            background-color: var(--footer-color);
+                                            font-size: 13px;
+                                        }
 
-                                    #results a {
-                                        color: #ffffff;
-                                        text-decoration: none;
-                                    }
+                                        #results a {
+                                            color: #ffffff;
+                                            text-decoration: none;
+                                        }
 
-                                    #results a:hover {
-                                        color: #e2e2e2;
-                                        text-decoration: none;
-                                    }
-                                </style>
+                                        #results a:hover {
+                                            color: #e2e2e2;
+                                            text-decoration: none;
+                                        }
+                                    </style>
+                                </div>
+                                <!--
+                                <div class="form-div-container" id="radius">
+                                    <label for="map-radius">RAGGIO:</label>
+                                    <select name="map-radius" id="map-radius">
+                                        <option value="10">10</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                    </select>
+                                </div>-->
+                                <div class="form-div-container" id="code">
+                                    <label for="map-code">CODICE TEST CENTER:</label>
+                                    <input type="text" name="map-code" id="map-code">
+                                </div>
+                                <div class="form-div-container" id="date">
+                                    <label for="map-datefrom">SESSIONE DA:</label>
+                                    <input type="date" name="map-datefrom" id="map-dateto">
+                                    <label for="map-dateto">SESSIONE A:</label>
+                                    <input type="date" name="map-dateto" id="map-dateto">
+                                </div>
+                                <div class="form-div-container" id="certification">
+                                    <label for="map-radius">CERTIFICAZIONE:</label>
+                                    <select name="map-certification" id="map-cert">
+                                        <option value="all">TUTTI I CERTIFICATI</option>
+                                        <?php
+                                            $list = "";
+                                            $sql = "SELECT * FROM servizi";
+                                            $stmt = $conn->query($sql);
+                                        
+                                            // Controllo risultati query
+                                            if ($stmt->num_rows > 0) {
+                                                // Stampa risultati
+                                                while($row = $stmt->fetch_assoc()) {
+                                                    $nome=$row['nome'];
+                                                    $id = $row['id'];
+                                                    $list = <<<EOD
+                                                        <option value="$id">$nome</option>
+                                                    EOD;
+                                                    echo $list;
+                                                }
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
-                            <!--
-                            <div class="form-div-container" id="radius">
-                                <label for="map-radius">RAGGIO:</label>
-                                <select name="map-radius" id="map-radius">
-                                    <option value="10">10</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="200">200</option>
-                                </select>
-                            </div>-->
-                            <div class="form-div-container" id="code">
-                                <label for="map-code">CODICE TEST CENTER:</label>
-                                <input type="text" name="map-code" id="map-code">
-                            </div>
-                            <div class="form-div-container" id="date">
-                                <label for="map-datefrom">SESSIONE DA:</label>
-                                <input type="date" name="map-datefrom" id="map-dateto">
-                                <label for="map-dateto">SESSIONE A:</label>
-                                <input type="date" name="map-dateto" id="map-dateto">
-                            </div>
-                            <button type="submit">Ricerca</button>
+                            <button type="submit" id="submit" disabled>Ricerca</button>
                         </form>
                     </div>
                     <div id="map"></div>
