@@ -5,7 +5,5 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 L.marker([42.30031812670491, 12.412028984726453]).addTo(map)
-    .bindPopup('ITT "U. Siffredi ;D"')
+    .bindPopup('ITT')
     .openPopup();
-
-

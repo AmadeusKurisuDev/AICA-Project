@@ -150,13 +150,13 @@ body{
     margin: 20px;
 }
 
-#map-search #map-near {
+#map-search #map-near-input {
     height: 20px;
     width: calc(15% + 20px);
     min-width: 210px;
 }
 
-#map-search #map-near:focus {
+#map-search #map-near-input:focus {
     border: 2px solid #1670BE;
     box-shadow: 0 0 5px #1670BE;
     outline-offset: 0px;
@@ -194,6 +194,44 @@ body{
 }
 
 /*-----------main(FINE)-------------*/
+
+/*-----------map-------------*/
+ .nameMap{
+    color: red;
+    font-size: 13px;
+    font-weight: bold;
+ }
+
+ .codeMap {
+    position: relative;
+    top: -45px;
+    font-size: 10px;
+    color: var(--main-bt-color);
+ }
+
+ .addressMap {
+    position: relative;
+    top: -70px;
+    font-size: 10px;
+    color: var(--main-bt-color);
+ }
+
+ .telephoneMap {
+    position: relative;
+    top: -110px;
+    font-size: 10px;
+    color: var(--main-bt-color);
+ }
+
+ .linkMap{
+    position: relative;
+    top: -110px;
+ }
+
+ .leaflet-popup-content {
+    height: 120px;
+ }
+/*-----------map(FINE)-------------*/
 
 /*-----------footer-------------*/
 

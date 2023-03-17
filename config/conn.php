@@ -1,17 +1,15 @@
 <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "aica";
 
-$DB_HOST = "localhost";
-$DB_USER = "root";
-$DB_PASS = "";
-$DB_TABLE = "luoghi";
+// Connessione
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-$db = mysqli_conn($DB_HOST,$DB_USER,$DB_PASS,$DB_TABLE);
-
-if(!$db){
-    die('errore di connessione').mysqli_exeption_error();
+// Controllo connessione
+if (!$conn) {
+  die("Connessione fallita: " . mysqli_connect_error());
 }
-
-
-
-
+//echo "Connessione avvenuta con successo!";
 ?>

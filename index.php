@@ -1,3 +1,7 @@
+<?php
+session_start();
+$_SESSION['codeMap'] = '<script src="./assets/js/app.js"></script>';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +20,34 @@
      crossorigin=""></script>
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <title>Portale AICA</title>
+    <script>
+    function showResult(str) {
+        element = document.querySelector('.HomePage');
+        if (str.length == 0) { 
+            document.getElementById("results").innerHTML = "";
+            element.style.visibility = 'visible';
+            return;
+        } else {
+            element.style.visibility = 'hidden';
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("results").innerHTML = this.responseText;
+    
+                }
+            };
+            xmlhttp.open("GET", "./logic/search.php?q=" + str, true);
+            xmlhttp.send();
+        }
+    }
+
+    function searchEdit(valueii){
+        var insertInput = document.getElementById('map-near-input');
+        var results = document.getElementById('results');
+        results.innerHTML = "";
+        insertInput.value = valueii;
+    }
+    </script>
 </head>
 <body>
     <div class="top-header">
@@ -39,11 +71,34 @@
             <div class="map-container">
                 <div class="map-container-column">
                     <div id="map-search">
-                        <form action="" method="post" id="map-form">
-                            <div class="form-div-container" id="near">
+                        <!--action="./logic/search.php"-->
+                        <form action="./logic/map.php" id="map-form" onkeydown="return event.key != 'Enter';">
+                            <div class="form-div-container" id="map-div-near-input">
                                 <label for="map-near">VICINO A:</label>
-                                <input type="text" name="map-near" id="map-near" placeholder="Inserisci un Indirizzo, Città o CAP">
+                                <input type="text" name="q" id="map-near-input" placeholder="Inserisci un Comune" onkeyup="showResult(this.value)" autocomplete="off">
+                                <div id="results"></div>
+                                <style>
+                                    #results {
+                                        position: absolute;
+                                        z-index: 999;
+                                        width: calc(15% + 20px);
+                                        min-width: 210px;
+                                        background-color: var(--footer-color);
+                                        font-size: 13px;
+                                    }
+
+                                    #results a {
+                                        color: #ffffff;
+                                        text-decoration: none;
+                                    }
+
+                                    #results a:hover {
+                                        color: #e2e2e2;
+                                        text-decoration: none;
+                                    }
+                                </style>
                             </div>
+                            <!--
                             <div class="form-div-container" id="radius">
                                 <label for="map-radius">RAGGIO:</label>
                                 <select name="map-radius" id="map-radius">
@@ -52,7 +107,7 @@
                                     <option value="100">100</option>
                                     <option value="200">200</option>
                                 </select>
-                            </div>
+                            </div>-->
                             <div class="form-div-container" id="code">
                                 <label for="map-code">CODICE TEST CENTER:</label>
                                 <input type="text" name="map-code" id="map-code">
@@ -63,7 +118,6 @@
                                 <label for="map-dateto">SESSIONE A:</label>
                                 <input type="date" name="map-dateto" id="map-dateto">
                             </div>
-                            <hr>
                             <button type="submit">Ricerca</button>
                         </form>
                     </div>
@@ -72,12 +126,15 @@
             </div>
         </div>
     </div>
-    
+    <div class="HomePage">
+    </div>
     <div class="footer">
         <div class="footer-one">
             <img src="./images/footer-logo.png">
         </div>
     </div>
-    <script src="./assets/js/app.js"></script>
+    <?php
+        echo $_SESSION['mapCode'];
+    ?>
 </body>
 </html>
