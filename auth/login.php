@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +37,26 @@
             <!--pulsanti menu-->
         </div>
     </div>
-
+    <?php
+        if(isset($_SESSION["createAccountStatus"])){
+            $value = $_SESSION["createAccountStatus"];
+            if($value !== ""){
+                $testo = $value;
+                $popup = <<<EOD
+                <div class="popup">
+                    <p>$testo</p>
+                </div>
+                EOD;
+                echo $popup;
+                $_SESSION["createAccountStatus"]=NULL;
+            }
+        }
+        
+    ?>
+    <!--
+    <div class="popup">
+        ciao
+    </div>-->
     <div class="content">
         <div class="main-container">
             <div class="login-container">

@@ -2,11 +2,6 @@
 session_start();
 include('../config/conn.php');
 
-if ( mysqli_connect_errno() ) {
-	// If there is an error with the connection, stop the script and display the error.
-	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
-}
-
 // Now we check if the data from the login form was submitted, isset() will check if the data exists.
 if ( !isset($_POST['email'], $_POST['password']) ) {
 	// Could not get the data that should have been sent.

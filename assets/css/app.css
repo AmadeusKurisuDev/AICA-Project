@@ -4,9 +4,12 @@
     margin: 0;
 }
 
+html{
+    height: 100%;
+}
+
 body{
     width: 100%;
-    height: 100vh;
     font-family: open-sans;
 }
 
@@ -85,7 +88,7 @@ body{
 /*-----------main-------------*/
 
 .content {
-    height: calc(100% - 80px - 45px);
+    height: calc(100% - 80px);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -100,8 +103,9 @@ body{
 }
 
 .map-container {
+    margin-top: 10%;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 45px);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -111,6 +115,7 @@ body{
 .map-container-column {
     width: 100%;
     height: 100%;
+    margin-bottom: 10%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -204,7 +209,7 @@ body{
 }
 
 #map { 
-    height: 550px; 
+    height: 400px; 
     width: var(--map-container-width);
 }
 
@@ -256,6 +261,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
     width: 85%;
     height: 40%;
 }
@@ -314,6 +320,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    flex-wrap: wrap;
     width: var(--map-container-width);
     height: 40%;
 }
@@ -327,6 +334,7 @@ body{
 .login-container {
     width: 100%;
     height: 100%;
+    min-height: calc(100vh - 80px - 45px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -415,6 +423,19 @@ body{
     transition: .2s ease-in-out;
 }
 
+.listtxt {
+    height: 25px;
+    width: calc(70% + 20px);
+}
+
+.listtxt:focus {
+    border: 2px solid #1670BE;
+    box-shadow: 0 0 5px #1670BE;
+    outline-offset: 0px;
+    outline: none;
+    transition: .2s ease-in-out;
+}
+
 #login-btn {
     margin-top: 20px;
     position: sticky;
@@ -428,13 +449,38 @@ body{
     border: none;
     background-color: var(--accent-bt-color);
     margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 }
 
 #login-btn:hover{
     transition: .2s ease-in-out;
     background-color: var(--main-bt-color);
 }
+
+.popup {
+    position: absolute;
+    z-index: 999;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 100px;
+    width: 300px;
+    background-color: var(--footer-color);
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 18px;
+    animation: popup-out 3s forwards;
+}
+
+@keyframes popup-out {
+    0%   {opacity: 1;}
+    75%  {opacity: 1;}
+    100% {opacity: 0; display: none;}
+  }
 
 /*-----------login(FINE)-------------*/
 
@@ -456,6 +502,7 @@ body{
     margin-top: 100px;
     width: 80%;
     height: fit-content;
+    margin-bottom: 10%;
     min-height: 50%;
     background-color: transparent;
     border: 1px solid #d1d3d4;
@@ -523,6 +570,16 @@ body{
     transition: .2s ease-in-out;
 }
 
+.aica-form-disclaimer {
+    margin: 20px 0;
+    padding: 20px 10px;
+    border: 1px solid #e6e7e8;
+    height: 210px;
+    overflow-y: scroll;
+    font-size: .8571em;
+}
+
+
 #register-btn {
     margin-top: 20px;
     position: sticky;
@@ -536,13 +593,28 @@ body{
     border: none;
     background-color: var(--accent-bt-color);
     margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 }
 
 #register-btn:hover{
     transition: .2s ease-in-out;
     background-color: var(--main-bt-color);
 }
+
+.errore-email-reg-v {
+    display: block;
+    color: red;
+    font-weight: bold;
+    text-decoration: underline;
+    transition: .5s ease-in-out;
+}
+
+.errore-email-reg {
+    display: none;
+    transition: .5s ease-in-out;
+}
+
+
 
 /*-----------register(FINE)-------------*/
 

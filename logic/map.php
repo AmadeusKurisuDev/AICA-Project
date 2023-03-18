@@ -97,7 +97,7 @@ if(!isset($_POST['submit'])){
                     <script>
                     var  myFGMarker = new L.FeatureGroup();
 
-                    var map = L.map('map').setView([$x, $y], 50);
+                    var map = L.map('map').setView([$x, $y], 40);
             
                     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="https://8digital.it/">8Digital</a>'
