@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['res'] = "";
 include('./../config/conn.php');
 if(!isset($_POST['submit'])){
 $fname=array();
@@ -10,6 +11,7 @@ $fvia = array();
 $ftelefono = array();
 $fcodice = array();
 $fcap = array();
+$fcivico = array();
 $fregione=array();
 $fprov=array();
 $fdescription=array();
@@ -19,6 +21,7 @@ $ftypename=array();
 $ftypedescription=array();
 $ftypeimage=array();
 $hint = "";
+$resoconto = "";
 $description = "";
 $type = "";
 $counter = 0;
@@ -33,31 +36,35 @@ if(!isset($_POST['submit'])){
     $from = $_REQUEST["map-datafrom"];
     $to = $_REQUEST["map-datato"];
     //$query=mysqli_query($conn,"SELECT s.nome as nome, s.descrizione as descrizione, p.comune as comune FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE p.comune = '$q'");
-    if($cert == 'all' && $code == ""){
-        if($from == "" && $to == ""){
-            $query=mysqli_query($conn,"SELECT p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id");
+    
+        if($cert == 'all' && $code == ""){
+            if($from == "" && $to == ""){
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id");
+            }else{
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE ce.datafrom = '$from' AND ce.datato = '$to'");
+            }
+            
+        }else if($cert == 'all' && $code !== ""){
+            if($from == "" && $to == ""){
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE s.codice = '$code'");
+            }else{
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE s.codice = '$code' AND (ce.datafrom = '$from' AND ce.datato = '$to')");
+            }
         }else{
-            $query=mysqli_query($conn,"SELECT p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE ce.datafrom = '$from' AND ce.datato = '$to'");
+            if($from == "" && $to == ""){
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE s.codice = '$code' AND ce.id_corso = '$cert'");
+            }else{
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE (s.codice = '$code' AND ce.id_corso = '$cert') AND (ce.datafrom = '$from' AND ce.datato = '$to')");
+            }
         }
-        
-    }else if($cert == 'all' && $code !== ""){
-        if($from == "" && $to == ""){
-            $query=mysqli_query($conn,"SELECT p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE s.codice = '$code'");
-        }else{
-            $query=mysqli_query($conn,"SELECT p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE s.codice = '$code' AND (ce.datafrom = '$from' AND ce.datato = '$to')");
-        }
-    }else{
-        if($from == "" && $to == ""){
-            $query=mysqli_query($conn,"SELECT p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE s.codice = '$code' AND ce.id_corso = '$cert'");
-        }else{
-            $query=mysqli_query($conn,"SELECT p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE (s.codice = '$code' AND ce.id_corso = '$cert') AND (ce.datafrom = '$from' AND ce.datato = '$to')");
-        }
-    }
+    
+    
 
     while($row=mysqli_fetch_assoc($query)){
         $fname[]=$row['comune'];
         $fx[] = $row['x'];
         $fy[] = $row['y'];
+        $fcivico[] = $row['civico'];
         $fnome[] = $row['nome'];
         $fvia[] = strtoupper($row['via']);
         $ftelefono[] = $row['telefono'];
@@ -79,6 +86,7 @@ if(!isset($_POST['submit'])){
                     $y = $fy[$counter];
                     $name = $fname[$counter];
                     $nome = $fnome[$counter];
+                    $civico = $fcivico[$counter];
                     $via = $fvia[$counter];
                     $telefono = $ftelefono[$counter];
                     $codice = $fcodice[$counter];
@@ -88,10 +96,7 @@ if(!isset($_POST['submit'])){
                     $hint = <<<EOD
                     <script>
                     var  myFGMarker = new L.FeatureGroup();
-                    
-                    
 
-                    
                     var map = L.map('map').setView([$x, $y], 50);
             
                     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -106,12 +111,29 @@ if(!isset($_POST['submit'])){
                     myFGMarker.addTo(map);
                     
                     EOD;
+                    $resoconto = <<<EOD
+                    
+                    <div class="res">
+                        <div class="t-res">
+                            <div class="t-count">
+                                <p>$ris</p>
+                            </div>
+                            <p class="res-titolo">$nome</p><p class="res-codice"> | $codice</p>
+                        </div>
+                        <div class="c-res">
+                            <p class="res-indirizzo">$via, $civico - $cap $comune ($prov)</p>
+                            <p class="res-telefono">Tel.: $telefono</p>
+                        </div>
+                    </div>
+                    
+                    EOD;
                     $ris++;
                 } else {
                     $x = $fx[$counter];
                     $y = $fy[$counter];
                     $name = $fname[$counter];
                     $nome = $fnome[$counter];
+                    $civico = $fcivico[$counter];
                     $via = $fvia[$counter];
                     $telefono = $ftelefono[$counter];
                     $codice = $fcodice[$counter];
@@ -125,6 +147,22 @@ if(!isset($_POST['submit'])){
 
                     myFGMarker.addLayer(marker);
                     myFGMarker.addTo(map);
+                    EOD;
+                    $resoconto .= <<<EOD
+                    
+                    <div class="res">
+                        <div class="t-res">
+                            <div class="t-count">
+                                <p>$ris</p>
+                            </div>
+                            <p class="res-titolo">$nome</p><p class="res-codice"> | $codice</p>
+                        </div>
+                        <div class="c-res">
+                            <p class="res-indirizzo">$via, $civico - $cap $comune ($prov)</p>
+                            <p class="res-telefono">Tel.: $telefono</p>
+                        </div>
+                    </div>
+                    
                     EOD;
                     $ris++;
                     $multiple++;
@@ -142,9 +180,19 @@ if(!isset($_POST['submit'])){
             EOD;
         $hint .= <<<EOD
         map.fitBounds(myFGMarker.getBounds());
+
+
+        map.on('click', function(e){
+            var coord = e.latlng;
+            var lat = coord.lat;
+            var lng = coord.lng;
+            console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+            });
         </script>
         EOD;
+        $_SESSION['resNum'] = $ris;
         $_SESSION['mapCode'] = $hint;
+        $_SESSION['res'] = $resoconto;
         header("Location: ./../index.php");
     }
     

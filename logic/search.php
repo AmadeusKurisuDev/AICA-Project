@@ -87,7 +87,7 @@ if(!isset($_POST['submit'])){
 
     $q = $_REQUEST["q"];
     //$query=mysqli_query($conn,"SELECT s.nome as nome, s.descrizione as descrizione, p.comune as comune FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE p.comune = '$q'");
-    $query=mysqli_query($conn,"SELECT s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id");
+    $query=mysqli_query($conn,"SELECT DISTINCT s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id");
     while($row=mysqli_fetch_assoc($query)){
         $fname[]=$row['comune'];
         $fregione[]=$row['regione'];
@@ -111,7 +111,7 @@ if(!isset($_POST['submit'])){
                     </div>
                     EOD;
                     $ris++;
-                } else {
+                } /*else {
                     $description = $fdescription[$counter];
                     $hint .= <<<EOD
                     <br>
@@ -122,7 +122,7 @@ if(!isset($_POST['submit'])){
                     </div>
                     EOD;
                     $ris++;
-                }
+                }*/
             }
             $counter++;
             
@@ -131,10 +131,6 @@ if(!isset($_POST['submit'])){
     if($hint==""){
         echo "Nessun risultato correlato.";
     }else{
-        $totrisultati = <<<EOD
-                <p style="color: #ffffff; font-family: 'Roboto', sans-serif; font-size:16px;" class="risultatitot" > risultati correlati: $ris</p>
-            EOD;
-        echo $totrisultati;
         echo $hint;
     }
     

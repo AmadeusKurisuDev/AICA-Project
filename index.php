@@ -1,6 +1,9 @@
 <?php
     include('./config/conn.php');
     session_start();
+    if(!isset($_SESSION['resNum'])){
+        $_SESSION['resNum']=0;
+    }
     $_SESSION['codeMap'] = '<script src="./assets/js/app.js"></script>';
 ?>
 <!DOCTYPE html>
@@ -61,7 +64,7 @@
     <div class="top-header">
         <div class="top-header-btn-container">
             <div class="top-header-btn">
-                <a href="#"><img src="./images/icons/users.png"> ACCEDI</a>
+                <a href="./auth/login.php"><img src="./images/icons/users.png"> ACCEDI</a>
                 <a href="#"> <img src="./images/icons/register.png"> REGISTRATI</a>
             </div>
         </div>
@@ -92,17 +95,17 @@
                                             z-index: 999;
                                             width: calc(15% + 20px);
                                             min-width: 210px;
-                                            background-color: var(--footer-color);
-                                            font-size: 13px;
+                                            background-color: #e2e2e2;
+                                            font-size: 16px;
                                         }
 
                                         #results a {
-                                            color: #ffffff;
+                                            color: #0c0d0d;
                                             text-decoration: none;
                                         }
 
                                         #results a:hover {
-                                            color: #e2e2e2;
+                                            background-color: #3a4041;
                                             text-decoration: none;
                                         }
                                     </style>
@@ -129,33 +132,64 @@
                                 </div>
                                 <div class="form-div-container" id="certification">
                                     <label for="map-radius">CERTIFICAZIONE:</label>
-                                    <select name="map-certification" id="map-cert">
-                                        <option value="all">TUTTI I CERTIFICATI</option>
-                                        <?php
-                                            $list = "";
-                                            $sql = "SELECT * FROM servizi";
-                                            $stmt = $conn->query($sql);
+                                        <select name="map-certification" id="map-cert">
+                                            <option value="all">TUTTI I CERTIFICATI</option>
+                                            <?php
+                                                $list = "";
+                                                $sql = "SELECT * FROM servizi";
+                                                $stmt = $conn->query($sql);
                                         
-                                            // Controllo risultati query
-                                            if ($stmt->num_rows > 0) {
-                                                // Stampa risultati
-                                                while($row = $stmt->fetch_assoc()) {
-                                                    $nome=$row['nome'];
-                                                    $id = $row['id'];
-                                                    $list = <<<EOD
-                                                        <option value="$id">$nome</option>
-                                                    EOD;
-                                                    echo $list;
+                                                // Controllo risultati query
+                                                if ($stmt->num_rows > 0) {
+                                                    // Stampa risultati
+                                                    while($row = $stmt->fetch_assoc()) {
+                                                        $nome=$row['nome'];
+                                                        $id = $row['id'];
+                                                        $list = <<<EOD
+                                                            <option value="$id">$nome</option>
+                                                        EOD;
+                                                        echo $list;
+                                                    }
                                                 }
-                                            }
-                                        ?>
-                                    </select>
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <button type="submit" id="submit" disabled>Ricerca</button>
-                        </form>
-                    </div>
+                                <button type="submit" id="submit" disabled>Ricerca</button>
+                            </form>
+                        </div>
                     <div id="map"></div>
+                    <div class="risultati">
+                    <?php 
+                        if($_SESSION['resNum']=="0"){
+                            echo 'Nessun risultato correlato.';
+                        }else{
+                            echo 'Risultati correlati: '.$_SESSION['resNum'];
+                        }
+                        
+                        ?>
+                        <div class="resoconto">
+                            <!--
+                            <div class="res">
+                                <div class="t-res">
+                                    <div class="t-count">
+                                        <p>1</p>
+                                    </div>
+                                    <p class="res-titolo">Titolo</p><p class="res-codice"> | A0001</p>
+                                </div>
+                                <div class="c-res">
+                                    <p class="res-indirizzo">via boh</p>
+                                    <p class="res-telefono">Tel.: 0761 111111</p>
+                                </div>
+                            </div>-->
+                            <?php 
+                            if($_SESSION['resNum']!=="0"){
+                                echo $_SESSION['res']; 
+                            }
+                            
+                            ?>
+                        </div>
+                    </div>
                 </div>   
             </div>
         </div>
