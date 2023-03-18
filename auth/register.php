@@ -66,6 +66,7 @@ include('./../config/conn.php');
                         <input type="text" name="cont-email" id="cont-email" class="inputtxt" onkeyup="ValidateEmail()" required>
                         <label for="password">
                             PASSWORD*
+                            <p id="errore-password-1" class="errore-email-reg">La password ha meno di 6 caratteri!</p>
                             <p id="errore-email-3" class="errore-email-reg">Le password non corrispondono!</p>
                         </label>
                         <input type="password" name="password" id="password" class="inputtxt" onkeyup="ValidatePassword()" required>
@@ -155,7 +156,7 @@ include('./../config/conn.php');
                         
                         </div>
                         <label for="checkbox">
-                            <input type="checkbox" name="checkbox" id="rg-checkbox">
+                            <input type="checkbox" name="checkbox" id="rg-checkbox" onclick="ValidateAll()" required>
                             Dichiaro di aver preso visione dell'informativa privacy*
                         </label>
                         <input type="submit" value="REGISTRATI" id="register-btn">
@@ -165,6 +166,9 @@ include('./../config/conn.php');
         </div>
     </div>
     <script>
+        var lockedp = 1;
+        var lockede = 1;
+
         function ValidateEmail(input) {
             var emailcheck = document.getElementById('cont-email');
             var email = document.getElementById('email');
@@ -179,12 +183,16 @@ include('./../config/conn.php');
                     er2.classList.remove("errore-email-reg");
                     er1.classList.add("errore-email-reg-v");
                     er2.classList.add("errore-email-reg-v");
+                    lockede = 0;
                     }else{
                         console.log('non uguale input:'+emailcheck.value+' altro:'+email.value);
                         er1.classList.remove("errore-email-reg-v");
                         er2.classList.remove("errore-email-reg-v");
                         er1.classList.add("errore-email-reg");
                         er2.classList.add("errore-email-reg");
+                        if(lockede != 1) {
+                            lockede = 1;
+                        }   
                     }
                 }else if(emailcheck.value == "" && email.value == ""){
                     if(emailcheck.value != email.value){
@@ -193,12 +201,16 @@ include('./../config/conn.php');
                     er2.classList.remove("errore-email-reg");
                     er1.classList.add("errore-email-reg-v");
                     er2.classList.add("errore-email-reg-v");
+                    lockede = 0;
                     }else{
                         console.log('non uguale input:'+emailcheck.value+' altro:'+email.value);
                         er1.classList.remove("errore-email-reg-v");
                         er2.classList.remove("errore-email-reg-v");
                         er1.classList.add("errore-email-reg");
                         er2.classList.add("errore-email-reg");
+                        if(lockede != 1) {
+                            lockede = 1;
+                        }   
                     }
                 }else{
                     if(emailcheck.value != email.value){
@@ -207,17 +219,19 @@ include('./../config/conn.php');
                     er2.classList.remove("errore-email-reg");
                     er1.classList.add("errore-email-reg-v");
                     er2.classList.add("errore-email-reg-v");
+                    lockede = 0;
                     }else{
                         console.log('non uguale input:'+emailcheck.value+' altro:'+email.value);
                         er1.classList.remove("errore-email-reg-v");
                         er2.classList.remove("errore-email-reg-v");
                         er1.classList.add("errore-email-reg");
                         er2.classList.add("errore-email-reg");
+                        if(lockede != 1) {
+                            lockede = 1;
+                        }   
                     }
                 }
         }
-
-
 
         function ValidatePassword(input) {
             var passwordcheck = document.getElementById('cont-password');
@@ -226,6 +240,25 @@ include('./../config/conn.php');
             
             var er1 = document.getElementById('errore-email-3');
             var er2 = document.getElementById('errore-email-4');
+            var erpass = document.getElementById('errore-password-1');
+            console.log('lunghezza:'+password.value.length);
+            var lenght = password.value.length;
+            if(lenght == 0){
+                erpass.classList.remove("errore-email-reg-v");
+                erpass.classList.add("errore-email-reg");
+            }else{
+                if(lenght<6){
+                    erpass.classList.remove("errore-email-reg");
+                    erpass.classList.add("errore-email-reg-v");
+                    if(lockedp != 1) {
+                        lockedp = 1;
+                    }
+                }else{
+                    erpass.classList.remove("errore-email-reg-v");
+                    erpass.classList.add("errore-email-reg");
+                    lockedp = 0;
+                }
+            }
             if(passwordcheck.value != "" && password.value == ""){
                 if(passwordcheck.value != password.value){
                     console.log('uguale input:'+passwordcheck.value+' altro:'+password.value);
@@ -233,12 +266,16 @@ include('./../config/conn.php');
                     er2.classList.remove("errore-email-reg");
                     er1.classList.add("errore-email-reg-v");
                     er2.classList.add("errore-email-reg-v");
+                    lockedp = 0;
                     }else{
                         console.log('non uguale input:'+passwordcheck.value+' altro:'+password.value);
                         er1.classList.remove("errore-email-reg-v");
                         er2.classList.remove("errore-email-reg-v");
                         er1.classList.add("errore-email-reg");
                         er2.classList.add("errore-email-reg");
+                        if(lockedp != 1) {
+                            lockedp = 1;
+                        }   
                     }
                 }else if(passwordcheck.value == "" && password.value == ""){
                     if(passwordcheck.value != password.value){
@@ -247,12 +284,16 @@ include('./../config/conn.php');
                     er2.classList.remove("errore-email-reg");
                     er1.classList.add("errore-email-reg-v");
                     er2.classList.add("errore-email-reg-v");
+                    lockedp = 0;
                     }else{
                         console.log('non uguale input:'+passwordcheck.value+' altro:'+password.value);
                         er1.classList.remove("errore-email-reg-v");
                         er2.classList.remove("errore-email-reg-v");
                         er1.classList.add("errore-email-reg");
                         er2.classList.add("errore-email-reg");
+                        if(lockedp != 1) {
+                            lockedp = 1;
+                        }  
                     }
                 }else{
                     if(passwordcheck.value != password.value){
@@ -261,14 +302,30 @@ include('./../config/conn.php');
                     er2.classList.remove("errore-email-reg");
                     er1.classList.add("errore-email-reg-v");
                     er2.classList.add("errore-email-reg-v");
+                    lockedp = 0;
                     }else{
                         console.log('non uguale input:'+passwordcheck.value+' altro:'+password.value);
                         er1.classList.remove("errore-email-reg-v");
                         er2.classList.remove("errore-email-reg-v");
                         er1.classList.add("errore-email-reg");
                         er2.classList.add("errore-email-reg");
+                        if(lockedp != 1) {
+                            lockedp = 1;
+                        }  
                     }
                 }
+        }
+
+        function ValidateAll(){
+            var invio = document.getElementById('register-btn');
+            var check = document.getElementById('rg-checkbox');
+            console.log("p:"+lockedp+" e:"+lockede);
+            if(lockedp==1 || lockede==1){
+                invio.disabled = false;
+            }else{
+                invio.disabled = true;
+                check.checked = false;
+            }
         }
     </script>
     <div class="footer">
