@@ -25,8 +25,8 @@ include('./../config/conn.php');
     <div class="top-header">
         <div class="top-header-btn-container">
             <div class="top-header-btn">
-                <a href="#"><img src="../images/icons/users.png"> ACCEDI</a>
-                <a href="#"> <img src="../images/icons/register.png"> REGISTRATI</a>
+                <a href="./login.php"><img src="../images/icons/users.png"> ACCEDI</a>
+                <a href="./register.php"> <img src="../images/icons/register.png"> REGISTRATI</a>
             </div>
         </div>
     </div>

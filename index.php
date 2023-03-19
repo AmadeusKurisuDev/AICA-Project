@@ -65,7 +65,7 @@
         <div class="top-header-btn-container">
             <div class="top-header-btn">
                 <a href="./auth/login.php"><img src="./images/icons/users.png"> ACCEDI</a>
-                <a href="#"> <img src="./images/icons/register.png"> REGISTRATI</a>
+                <a href="./auth/register.php"> <img src="./images/icons/register.png"> REGISTRATI</a>
             </div>
         </div>
     </div>
