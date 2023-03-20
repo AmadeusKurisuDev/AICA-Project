@@ -52,7 +52,7 @@ if(!isset($_POST['submit'])){
             }
         }else{
             if($from == "" && $to == ""){
-                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE s.codice = '$code' AND ce.id_corso = '$cert'");
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE ce.id_corso = '$cert'"); //tolto s.codice = $code
             }else{
                 $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE (s.codice = '$code' AND ce.id_corso = '$cert') AND (ce.datafrom = '$from' AND ce.datato = '$to')");
             }
