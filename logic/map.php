@@ -41,25 +41,24 @@ if(!isset($_POST['submit'])){
             if($from == "" && $to == ""){
                 $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id");
             }else{
-                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE ce.datafrom = '$from' AND ce.datato = '$to'");
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE ce.datafrom <= '$from' AND ce.datato >= '$to'");
             }
             
         }else if($cert == 'all' && $code !== ""){
             if($from == "" && $to == ""){
                 $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM sedi s JOIN posizione p ON s.id_posizione = p.id WHERE s.codice = '$code'");
             }else{
-                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE s.codice = '$code' AND (ce.datafrom = '$from' AND ce.datato = '$to')");
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE s.codice = '$code' AND (ce.datafrom <= '$from' AND ce.datato >= '$to')");
             }
         }else{
             if($from == "" && $to == ""){
                 $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE ce.id_corso = '$cert'"); //tolto s.codice = $code
             }else{
-                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE (s.codice = '$code' AND ce.id_corso = '$cert') AND (ce.datafrom = '$from' AND ce.datato = '$to')");
+                $query=mysqli_query($conn,"SELECT s.civico as civico, p.provincia as prov, s.co_y as y, s.co_x as x, s.codice as codice, p.cap as cap, s.telefono as telefono, s.via as via, s.nome as nome, s.descrizione as descrizione, p.comune as comune, p.regione as regione, p.provincia as provincia FROM (sedi s JOIN posizione p ON s.id_posizione = p.id) JOIN center ce ON s.id = ce.id_sede WHERE (s.codice = '$code' AND ce.id_corso = '$cert') AND (ce.datafrom <= '$from' AND ce.datato >= '$to')");
             }
         }
     
     
-
     while($row=mysqli_fetch_assoc($query)){
         $fname[]=$row['comune'];
         $fx[] = $row['x'];
@@ -142,7 +141,7 @@ if(!isset($_POST['submit'])){
                     $prov = $fprov[$counter]; 
                     $hint .= <<<EOD
                     marker = L.marker([$x, $y]).addTo(map)
-                    .bindPopup('<p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><a class="linkMap" href="#">VAI ALLA SCHEDA ></a>')
+                    .bindPopup('<form action="./logic/sede.php" method="post"><input type="hidden" name="idsede" value="$codice"/> <p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><button class="linkMap" type="submit">VAI ALLA SCHEDA</button></form>')
                     .openPopup();
 
                     myFGMarker.addLayer(marker);
@@ -173,7 +172,8 @@ if(!isset($_POST['submit'])){
         }
     }
     if($hint==""){
-        echo "Nessun risultato correlato.";
+        $_SESSION["errorStatus"] = "Nessun risultato correlato.";
+        header("Location: ./../index.php");
     }else{
         $totrisultati = <<<EOD
                 <p style="color: #ffffff; font-family: 'Roboto', sans-serif; font-size:16px;" class="risultatitot" > risultati correlati: $ris</p>

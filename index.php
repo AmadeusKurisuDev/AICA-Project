@@ -1,6 +1,7 @@
 <?php
+session_start();
     include('./config/conn.php');
-    session_start();
+    
     if(!isset($_SESSION['resNum'])){
         $_SESSION['resNum']=0;
     }
@@ -58,6 +59,7 @@
             btn.setAttribute('disabled', true);
         }
     }
+
     </script>
 </head>
 <body>
@@ -82,6 +84,22 @@
             <div class="map-container">
                 <div class="map-container-column">
                     <div id="map-search">
+                    <?php
+                        if(isset($_SESSION["errorStatus"])){
+                            $value = $_SESSION["errorStatus"];
+                            if($value !== ""){
+                                $testo = $value;
+                                $popup = <<<EOD
+                                <div class="popup">
+                                    <p>$testo</p>
+                                </div>
+                                EOD;
+                                echo $popup;
+                                $_SESSION["errorStatus"]=NULL;
+                            }
+                        }
+                        
+                    ?>
                         <!--action="./logic/search.php"-->
                         <form action="./logic/map.php" id="map-form" onkeydown="return event.key != 'Enter';">
                             <div class="search">
@@ -206,3 +224,4 @@
     ?>
 </body>
 </html>
+

@@ -71,7 +71,7 @@ session_start();
                     <form action="authenticate.php" method="post" id="login-form">
                         <label for="email">EMAIL</label>
                         <input type="text" name="email" id="email" class="inputtxt" required>
-                        <label for="password">PASSWORD (<a href="#" class="passforgotten">Dimenticata?</a>)</label>
+                        <label for="password">PASSWORD <!--(<a href="#" class="passforgotten">Dimenticata?</a>)--></label>
                         <input type="password" name="password" id="password" class="inputtxt" required>
                         <hr>
                         <input type="submit" value="ACCEDI" id="login-btn">

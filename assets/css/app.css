@@ -635,3 +635,31 @@ body{
 }
 
 /*-----------footer(FINE)-------------*/
+
+
+
+
+/*-----------sede-admin-------------*/
+
+#submit-bt {
+    position: sticky;
+    float: right;
+    right: 0px;
+    color: #ffffff;
+    font-size: 14px;
+    height: 20px;
+    width: fit-content;
+    padding: 0px 10px 0px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--accent-bt-color);
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#submit-bt:hover{
+    transition: .2s ease-in-out;
+    background-color: var(--main-bt-color);
+}
+
+/*-----------sede-admin(FINE)-------------*/
