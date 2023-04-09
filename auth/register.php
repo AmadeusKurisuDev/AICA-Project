@@ -98,13 +98,20 @@ include('./../config/conn.php');
                             ?>
                         </select>
                         <label for="citta">CITTÀ*</label>
-                        <select name="citta" id="citta" class="listtxt" required>
+                        <input type="text" name="citta" id="citta" class="listtxt" required>
+                        <label for="cap">CAP*</label>
+                        <input type="text" name="cap" id="cap" class="listtxt" required>
+                        <label for="provincia">PROVINCIA*</label>
+                        <input type="text" name="provincia" id="provincia" class="listtxt" required>
+                        <label for="regione">REGIONE*</label>
+                        <input type="text" name="regione" id="regione" class="listtxt" required>
                             <?php
+                            /*
                                 include('./../config/conn.php');
                                 $id=0;
                                 $comune="";
                                 $listacomune="";
-                                $query=mysqli_query($conn,"SELECT * FROM posizione");
+                                $query=mysqli_query($conn,"INSERT INTO posizione SET comune");
                                 while($row=mysqli_fetch_assoc($query)){
                                     $id = $row['id'];
                                     $comune = $row['comune'];
@@ -112,9 +119,12 @@ include('./../config/conn.php');
                                         <option value="$id">$comune</option>
                                     EOD;
                                     echo $listacomune;
-                                }
+                                }*/
+
+                                
+
                             ?>
-                        </select>
+                        </input>
                         <label for="areaf">AREA FUNZIONALE*</label>
                         <select name="areaf" id="areaf" class="listtxt" required>
                             <?php
