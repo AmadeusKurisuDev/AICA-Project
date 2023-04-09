@@ -40,7 +40,7 @@ session_start();
     <div class="content">
         <div class="main-container">
             <?php
-                $codice=$_POST['idsede'];
+                $codice=$_POST['mapLoc'];
                 $descrizione="";
                 $nome="";
                 $comune="";
@@ -57,7 +57,13 @@ session_start();
                     $row['provincia'] = $provincia;
                     $row['cap'] = $cap;
                     $row['telefono'] = $telefono;
+                    $ris = <<<EOD
+
+                    EOD;
+                    echo $ris;
+                    /**------------- Da fare la logica per visualizzare la sede */
                 }
+
             ?>
         </div>
     </div>

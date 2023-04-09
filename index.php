@@ -176,7 +176,9 @@ session_start();
                                 <button type="submit" id="submit" disabled>Ricerca</button>
                             </form>
                         </div>
-                    <div id="map"></div>
+                    <form action="./logic/sede.php" method="post">
+                        <div id="map"></div>
+                    </form>
                     <div class="risultati">
                     <?php 
                         if($_SESSION['resNum']=="0"){

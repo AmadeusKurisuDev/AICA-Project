@@ -103,7 +103,7 @@ if(!isset($_POST['submit'])){
                     }).addTo(map);
 
                     marker = L.marker([$x, $y]).addTo(map)
-                    .bindPopup('<p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><a class="linkMap" href="#">VAI ALLA SCHEDA ></a>')
+                    .bindPopup('<p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><button class="linkMap" type="submit" name="mapLoc" value="$codice">VAI ALLA SCHEDA</button>')
                     .openPopup();
 
                     myFGMarker.addLayer(marker);
@@ -141,7 +141,7 @@ if(!isset($_POST['submit'])){
                     $prov = $fprov[$counter]; 
                     $hint .= <<<EOD
                     marker = L.marker([$x, $y]).addTo(map)
-                    .bindPopup('<form action="./logic/sede.php" method="post"><input type="hidden" name="idsede" value="$codice"/> <p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><button class="linkMap" type="submit">VAI ALLA SCHEDA</button></form>')
+                    .bindPopup('<form action="./logic/sede.php" method="post"><input type="hidden" name="idsede" value="$codice"/> <p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><button class="linkMap" type="submit" name="mapLoc" value="$codice">VAI ALLA SCHEDA</button></form>')
                     .openPopup();
 
                     myFGMarker.addLayer(marker);
