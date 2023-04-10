@@ -176,9 +176,7 @@ session_start();
                                 <button type="submit" id="submit" disabled>Ricerca</button>
                             </form>
                         </div>
-                    <form action="./logic/sede.php" method="post">
-                        <div id="map"></div>
-                    </form>
+                    <div id="map"></div>
                     <div class="risultati">
                     <?php 
                         if($_SESSION['resNum']=="0"){
@@ -224,6 +222,15 @@ session_start();
     <?php
         echo $_SESSION['mapCode'];
     ?>
+    <script>/*
+        const myButton = document.getElementById("mapLoc");
+
+        myButton.addEventListener("click", function() {
+        const myAttribute = this.getAttribute("attribute");
+        window.location.href = "/logic/sede.php?c="+myAttribute;
+        });*/
+
+    </script>
 </body>
 </html>
 

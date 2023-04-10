@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['loggedin'])) {
+	header('Location: ../auth/login.php');
+	exit;
+}
 include('./../config/conn.php');
 include ('./../config/code.php');
 ?>
@@ -111,9 +115,11 @@ echo $id_sede;
                         <input type="hidden" name="codice" id="codice" value="$nextCode">
                     </div>
                     <div class="form-div-container">
+                        <label for="nomesede">Nome della sede:</label>
                         <input type="text" name="nomesede" id="nomesede">
                     </div>
                     <div class="form-div-container">
+                        <label for="description">Descrizione:</label>
                         <textarea id="description" name="description" rows="5" cols="50"></textarea>
                     </div>
                     <div class="form-div-container">
@@ -262,9 +268,11 @@ echo $id_sede;
                         <input type="hidden" name="codice" id="codice" value="$codice">
                     </div>
                     <div class="form-div-container">
+                        <label for="nomesede">Nome della sede:</label>
                         <input type="text" name="nomesede" id="nomesede" value="$nome">
                     </div>
                     <div class="form-div-container">
+                        <label for="description">Descrizione:</label>
                         <textarea id="description" name="description" rows="5" cols="50">$descrizione</textarea>
                     </div>
                     <div class="form-div-container">

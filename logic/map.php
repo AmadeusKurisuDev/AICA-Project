@@ -103,7 +103,7 @@ if(!isset($_POST['submit'])){
                     }).addTo(map);
 
                     marker = L.marker([$x, $y]).addTo(map)
-                    .bindPopup('<p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><button class="linkMap" type="submit" name="mapLoc" value="$codice">VAI ALLA SCHEDA</button>')
+                    .bindPopup('<form action="./logic/sede.php" method="post"><p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><button class="linkMap" type="submit" name="mapLoc" id="mapLoc" value="$codice">VAI ALLA SCHEDA</button></form>')
                     .openPopup();
 
                     myFGMarker.addLayer(marker);
@@ -141,7 +141,7 @@ if(!isset($_POST['submit'])){
                     $prov = $fprov[$counter]; 
                     $hint .= <<<EOD
                     marker = L.marker([$x, $y]).addTo(map)
-                    .bindPopup('<form action="./logic/sede.php" method="post"><input type="hidden" name="idsede" value="$codice"/> <p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><button class="linkMap" type="submit" name="mapLoc" value="$codice">VAI ALLA SCHEDA</button></form>')
+                    .bindPopup('<form action="./logic/sede.php" method="post"><input type="hidden" name="idsede" value="$codice"/> <p class="nameMap">$nome</p><br><p class="codeMap">$codice</p><br><p class="addressMap">$via - $cap $comune ($prov)</p><br><p class="telephoneMap">Tel.: $telefono</p><button class="linkMap" type="submit" name="mapLoc" id="mapLoc" value="$codice">VAI ALLA SCHEDA</button></form>')
                     .openPopup();
 
                     myFGMarker.addLayer(marker);
@@ -182,14 +182,15 @@ if(!isset($_POST['submit'])){
         map.fitBounds(myFGMarker.getBounds());
 
 
-        map.on('click', function(e){
-            var coord = e.latlng;
-            var lat = coord.lat;
-            var lng = coord.lng;
-            console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+            map.on('click', function(e){
+                var coord = e.latlng;
+                var lat = coord.lat;
+                var lng = coord.lng;
+                console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
             });
         </script>
         EOD;
+        
         $_SESSION['resNum'] = $ris;
         $_SESSION['mapCode'] = $hint;
         $_SESSION['res'] = $resoconto;
