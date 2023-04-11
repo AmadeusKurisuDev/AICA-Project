@@ -9,7 +9,7 @@ Il sito web "AICA" richiede i seguenti requisiti di sistema:
 
 ### Come usare il sito
 Per utilizzare il sito web AICA, segui questi passaggi:
-- Accedi al sito web all'indirizzo https://www.aicanet.it.
+- Accedi al sito web all'indirizzo https://scuola.michelefelici.com/sites/AICA/index.php.
 - Esplora le diverse pagine e funzionalità offerte dal sito.
 - Per accedere alle funzionalità riservate, effettua il login utilizzando le credenziali fornite.
 
